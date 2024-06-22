@@ -3,8 +3,8 @@ import mimetypes
 import boto3
 
 def main():
-    # Specify the directory containing your files
-    directory = r'D:\Nivetha\simple_html_portfolio'
+    # Specify the directory containing your files (relative to the GitHub Actions workspace)
+    directory = '.'  # Root directory of the repository
     bucket_name = '21itr077'
     
     # Retrieve AWS credentials from environment variables
@@ -20,12 +20,10 @@ def main():
 
     try:
         # List files in the directory
-        files = os.listdir(directory)
-
-        for file in files:
-            local_file = os.path.join(directory, file)
-            if os.path.isfile(local_file):  # Only upload if it's a file
-                s3_key = file  # Use the file name as the S3 key
+        for root, dirs, files in os.walk(directory):
+            for file in files:
+                local_file = os.path.join(root, file)
+                s3_key = os.path.relpath(local_file, directory)  # Use relative path as the S3 key
                 
                 # Guess the content type based on the file extension
                 content_type, _ = mimetypes.guess_type(local_file)
