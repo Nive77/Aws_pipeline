@@ -50,6 +50,26 @@ header h1 {
     color: #095a0d;
     font-weight: bold;
 }
+.home-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-content {
+    flex: 1;
+    max-width: 60%;
+}
+
+.gif-container {
+    flex: 0 0 auto;
+    max-width: 35%;
+}
+
+.cool-gif {
+    width: 100%;
+    height: auto;
+}
 
 .heading {
     font-size: 2rem;
